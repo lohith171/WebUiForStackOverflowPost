@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebUiForStackOverflowPost.Models.StackOverflowPost>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Post")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vote)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vote)
+        </td>
+        <td>
+            <form method="post" action='@Url.Action("Upvote","Post",new {title=item.title})'>
+                <input type="submit" value="Upvote" />
+            </form>
+        <td>
+        <td>
+            <form method="post" action='@Url.Action("Downvote","Post",new {title=item.title})'>
+                <input type="submit" value="Downvote" />
+            </form>
+        <td>
+    </tr>
+    }
+    <tr>
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+</table>
